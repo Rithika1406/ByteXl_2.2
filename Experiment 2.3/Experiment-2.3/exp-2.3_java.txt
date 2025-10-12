@@ -1,1 +1,99 @@
-Added 2.3 experiment
+// Experiment 2.3
+// Java Programs Using Lambda Expressions and Stream Operations
+// Section: DC-902
+// Name: Rithika Singh
+// UID: 23BCS11204
+
+import java.util.*;
+import java.util.stream.*;
+
+class Employee {
+    int id;
+    String name;
+    double salary;
+
+    Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public String toString() {
+        return id + " - " + name + " - " + salary;
+    }
+}
+
+class Student {
+    String name;
+    int marks;
+
+    Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public String toString() {
+        return name + " (" + marks + ")";
+    }
+}
+
+class Product {
+    int id;
+    String name;
+    double price;
+
+    Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public String toString() {
+        return id + " - " + name + " - " + price;
+    }
+}
+
+public class Exp_2_3 {
+    public static void main(String[] args) {
+
+        // Part A: Sorting Employee Objects using Lambda Expressions
+        List<Employee> employees = Arrays.asList(
+            new Employee(1, "Rithika", 70000),
+            new Employee(2, "Keshav", 85000),
+            new Employee(3, "Riya", 65000)
+        );
+
+        System.out.println("Sorted Employees by Salary (Lambda):");
+        employees.stream()
+                .sorted((e1, e2) -> Double.compare(e1.salary, e2.salary))
+                .forEach(System.out::println);
+
+        // Part B: Filtering and Sorting Students using Streams
+        List<Student> students = Arrays.asList(
+            new Student("Aman", 78),
+            new Student("Ujjwal", 90),
+            new Student("Riya", 65)
+        );
+
+        System.out.println("\nStudents with marks > 70 sorted by marks:");
+        students.stream()
+                .filter(s -> s.marks > 70)
+                .sorted((s1, s2) -> s2.marks - s1.marks)
+                .forEach(System.out::println);
+
+        // Part C: Stream Operations on Product Dataset
+        List<Product> products = Arrays.asList(
+            new Product(101, "Laptop", 55000),
+            new Product(102, "Phone", 25000),
+            new Product(103, "Tablet", 15000)
+        );
+
+        double totalPrice = products.stream()
+                .mapToDouble(p -> p.price)
+                .sum();
+
+        System.out.println("\nAll Products:");
+        products.forEach(System.out::println);
+        System.out.println("Total Price of all Products: " + totalPrice);
+    }
+}
